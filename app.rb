@@ -8,9 +8,9 @@ enable :sessions
 set :views, File.dirname(__FILE__) + '/views'
 set :public_folder, File.dirname(__FILE__) + '/public'
 
-#CALLBACK_URL = "http://localhost:4567/oauth/callback"
+CALLBACK_URL = "http://localhost:4567/oauth/callback"
 
-CALLBACK_URL = "https://polar-depths-5562.herokuapp.com/oauth/callback"
+#CALLBACK_URL = "https://polar-depths-5562.herokuapp.com/oauth/callback"
 
 Pocket.configure do |config|
   config.consumer_key = '34879-eb9f9f3af8b2b02555565921'
