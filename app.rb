@@ -72,15 +72,26 @@ get "/retrieve" do
   data = info.to_json
   #saved = JSON.parse(data)["list"]
   saved = JSON.parse(data)["list"]
+  @articles = []
   @titles = []
   saved.each do |item, value|
     # @titles = value["given_title"]
-    @titles.push(value["given_title"])
+    @articles.push({
+      "title" => value["given_title"],
+      "word_count" => value["word_count"],
+      "reading_time" => ((value["word_count"]).to_f / 130).round,
+      "url" => value["resolved_url"]
+      })
+    # @articles[:article] = {
+    #   "title" => value["given_title"],
+
+    # }
+    # @titles.push(value["given_title"])
     # @titles.push(value["word_count"])
     #p @titles
   end
 
-  erb :saved, :locals => {:titles => @titles}
+  erb :saved, :locals => {:articles => @articles}
 
   # @titles.each do |title, word_count|
   #    "#{title}, #{word_count}\n"
