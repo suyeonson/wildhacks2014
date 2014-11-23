@@ -31,7 +31,7 @@ get "/" do
 #     '
   else
     erb :login
-    '<h1>WildHacks</h1><a href="/oauth/connect">Connect with Pocket</a>'
+    
   end
 end
 
