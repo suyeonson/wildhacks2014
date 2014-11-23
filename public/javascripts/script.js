@@ -85,7 +85,6 @@ $(document).ready(function() {
 			events.list.push(to_schedule);
 		}
 
-		var resource = {};
 		var allResources = [];
 
 		for (var k = 0; k < events.list.length; k++) {
@@ -101,14 +100,14 @@ $(document).ready(function() {
 					var endTime = moment(response[j]["end"]["dateTime"]).clone();
 
 					var finalEndTime = endTime.add(addMinutes, "minutes").format("YYYY-MM-DDTHH:mm:ssZ")
+					var resource = {};
 
+					resource["summary"] = summary
+					resource["description"] = description;
+					resource["start"] = {"dateTime":start};
+					resource["end"] = {"dateTime":finalEndTime};
 
-						resource["summary"] = summary
-						resource["description"] = description;
-						resource["start"] = {"dateTime":start};
-						resource["end"] = {"dateTime":finalEndTime};
-
-						allResources.push(resource)
+					allResources.push(resource)
 
 				};
 			};
@@ -153,7 +152,6 @@ $(document).ready(function() {
 	
 			    });
 
-
 			    request.execute(function(resp) {
 			  		console.log(resp);
 				});
@@ -163,7 +161,6 @@ $(document).ready(function() {
 
 		  });
 		}
-
 
 		handleAuthClick();
 
