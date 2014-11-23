@@ -1,8 +1,5 @@
 var getCalendar = "https://www.googleapis.com/calendar/v3/calendars/4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com/events?key=AIzaSyDFIPR7NpYdr5-2ykZqjoMsuT9EYW_zt_M";
 
-var postToCalendar = "https://www.googleapis.com/calendar/v3/calendars/4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com/events/quickAdd?key=AIzaSyDFIPR7NpYdr5-2ykZqjoMsuT9EYW_zt_M";
-
-
 $(document).ready(function() {
 
 	$.getJSON(getCalendar, function(data) {
@@ -10,8 +7,6 @@ $(document).ready(function() {
 		var response = data["items"]
 
 		var timeDifferences = [];
-
-		// console.log(response)
 
 		for (var i=0; i < response.length-1; i++) {
 
@@ -36,60 +31,7 @@ $(document).ready(function() {
 		var scopes = 'https://www.googleapis.com/auth/calendar';
 
 
-		function handleClientLoad() {
-		  gapi.client.setApiKey(apiKey);
-		  window.setTimeout(checkAuth,1);
-		  checkAuth();
-		}
 
-		function checkAuth() {
-		  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
-		      handleAuthResult);
-		}
-
-		function handleAuthResult(authResult) {
-		  var authorizeButton = document.getElementById('authorize-button');
-		  if (authResult) {
-		    authorizeButton.style.visibility = 'hidden';
-		    makeApiCall();
-		  } else {
-		    authorizeButton.style.visibility = '';
-		    authorizeButton.onclick = handleAuthClick;
-		   }
-		}
-
-		function handleAuthClick(event) {
-		  gapi.auth.authorize(
-		      {client_id: clientId, scope: scopes, immediate: false},
-		      handleAuthResult);
-		  return false;
-		}
-
-		var resource = {
-		  "summary": "Appointment",
-		  "location": "Somewhere",
-		  "start": {
-		    "dateTime": "2014-11-23T10:00:00.000-07:00"
-		  },
-		  "end": {
-		    "dateTime": "2014-11-23T10:25:00.000-07:00"
-		  }
-		};
-
-		function makeApiCall() {
-		  gapi.client.load('calendar', 'v3', function() {
-		    var request = gapi.client.calendar.events.insert({
-		      'calendarId': '4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com',
-		      'resource': resource
-		    });
-		          
-			request.execute(function(resp) {
-			  console.log(resp);
-			});
-		  });
-		}
-
-		handleAuthClick();
 
 		var saved_articles = {};
 		saved_articles.list = [];
@@ -121,7 +63,7 @@ $(document).ready(function() {
 				var url = saved_articles.list[j].url;
 				var reading_time = saved_articles.list[j].reading_time;
 
-				if (reading_time < diff) {
+				if (reading_time < diff && reading_time > 1) {
 					// save to valid_articles array
 					var valid_article = {
 						'title': title,
@@ -142,7 +84,88 @@ $(document).ready(function() {
 			}
 			events.list.push(to_schedule);
 		}
-		// do other things
-		console.log(events);
+
+		var resource = {};
+		var allResources = [];
+
+		for (var k = 0; k < events.list.length; k++) {
+			for (var j = 0; j < response.length; j++) {
+				if (response[j]["id"] == events.list[k]["end_id"]) {
+
+					var summary = events.list[k]["article"]["title"];
+					var description = events.list[k]["article"]["url"];
+					var start = response[j]["end"]["dateTime"];
+
+					var addMinutes = events.list[k]["article"]["reading_time"];
+
+					var endTime = moment(response[j]["end"]["dateTime"]).clone();
+
+					var finalEndTime = endTime.add(addMinutes, "minutes").format("YYYY-MM-DDTHH:mm:ssZ")
+
+
+						resource["summary"] = summary
+						resource["description"] = description;
+						resource["start"] = {"dateTime":start};
+						resource["end"] = {"dateTime":finalEndTime};
+
+						allResources.push(resource)
+
+				};
+			};
+
+		};
+
+
+		function handleClientLoad() {
+		  gapi.client.setApiKey(apiKey);
+		  window.setTimeout(checkAuth,1);
+		  checkAuth();
+		}
+
+		function checkAuth() {
+		  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
+		      handleAuthResult);
+		}
+
+		function handleAuthResult(authResult) {
+		  var authorizeButton = document.getElementById('authorize-button');
+		  if (authResult) {
+		    makeApiCall();
+		  } 
+		}
+
+		function handleAuthClick(event) {
+		  gapi.auth.authorize(
+		      {client_id: clientId, scope: scopes, immediate: false},
+		      handleAuthResult);
+		  return false;
+		}
+
+		function makeApiCall() {
+		  gapi.client.load('calendar', 'v3', function() {
+
+		  	for (var x = 0; x < allResources.length; x++) {
+
+		  		console.log(allResources[x])
+			    var request = gapi.client.calendar.events.insert({
+			      'calendarId': '4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com',
+			      'resource': allResources[x]
+	
+			    });
+
+
+			    request.execute(function(resp) {
+			  		console.log(resp);
+				});
+
+		  	};
+		  	  
+
+		  });
+		}
+
+
+		handleAuthClick();
+
 	});
 });
