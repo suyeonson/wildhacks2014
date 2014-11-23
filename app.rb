@@ -1,5 +1,5 @@
-require "sinatra"
-
+require 'rubygems'
+require 'sinatra'
 require "./lib/pocket.rb"
 
 enable :sessions
