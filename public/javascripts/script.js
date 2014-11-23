@@ -147,16 +147,13 @@ $(document).ready(function() {
 
 		  	for (var x = 0; x < allResources.length; x++) {
 
-		  		console.log(allResources[x]);
 			    var request = gapi.client.calendar.events.insert({
 			      'calendarId': '4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com',
 			      'resource': allResources[x]
 	
 			    });
 
-			    request.execute(function(resp) {
-			  		console.log(resp);
-				});
+			    request.execute();
 
 		  	};
 		  	  
