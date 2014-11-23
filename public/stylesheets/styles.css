@@ -2,3 +2,9 @@ body {
 	text-align: center;
 	font-family: Helvetica, sans-serif;
 }
+
+.results {
+	text-align: left;
+	width: 50%;
+	margin: 0 auto;
+}
