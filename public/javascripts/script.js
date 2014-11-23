@@ -24,6 +24,18 @@ $.getJSON(calendarLink, function(data) {
 });
 
 $(document).ready(function() {
-	var reading_time = $('#reading-time').val();
-	console.log(reading_time);
+	var saved_articles = {};
+	saved_articles.list = [];
+	$('.item').each(function(i) {
+		var reading_time = $(this).find('#reading-time').text();
+		var url = $(this).find('a').attr('href');
+		var title = $(this).find('a').text();
+		var new_article = {
+			'title': title,
+			'url': url,
+			'reading_time': reading_time
+		};
+		saved_articles.list.push(new_article);
+	});
+	console.log(saved_articles);
 });
