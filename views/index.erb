@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-  		<title>WildHacks</title>
-  		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<title>Pickpocket</title>
+  		<!-- <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css"> -->
   		<link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
-
+  		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
-		<h1>WildHacks 2014</h1>
+		<h1><span id="pick">Pick</span><span id="pocket">pocket</span></h1>
+		<p class="description">a scheduling app to help you read what you've bookmarked</p>
+		<div class="pocket-image">
+			<a href="images/pickpocket.gif"><img src="images/pickpocket3.png" onmouseover="this.src='images/pickpocket.gif'" onmouseout="this.src='images/pickpocket3.png'" /></a>
+		</div>
 		<div class="container">
-			<a href="/add?url=http://getpocket.com">Add Pocket Homepage</a>
-			<a href="/retrieve">Retrieve single item</a>
+			<a href="/retrieve">Pick My Pocket!</a>
 		</div>
 		<div class="results">
 		</div>

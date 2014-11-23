@@ -1,10 +1,97 @@
 body {
 	text-align: center;
-	font-family: Helvetica, sans-serif;
+	font-family: 'Lato', sans-serif;
+	background-color: #fafafa;
 }
 
 .results {
 	text-align: left;
 	width: 50%;
 	margin: 0 auto;
+}
+
+h1 {
+	width: 45%;
+	margin: 0 auto;
+	text-transform: uppercase;
+	font-size: 4em;
+	padding-top: 2%;
+	padding-bottom: 1%;
+	border-bottom: 4px solid #333;
+}
+
+#pick {
+	font-weight: 800;
+}
+
+#pocket {
+	font-weight: 300;
+}
+
+.description {
+	font-weight: 300;
+	font-size: 1.3em;
+	padding-top: 1%;
+	padding-bottom: 2%;
+}
+
+.container {
+	font-size: 1.2em;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: 300;
+	text-align: center;
+	width: 20%;
+	background-color: #333;
+	cursor: pointer;
+	margin: 0 auto;
+	margin-top: 3%;
+	padding: 12px 0px;
+	padding: 8px 20px;
+	border: 0;
+	-o-transition: .2s;
+	-ms-transition: .2s;
+	-moz-transition: .2s;
+	-webkit-transition: .2s;
+	transition: .2s;
+}
+
+.container:hover {
+	background-color: #f72710;
+}
+
+.container a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.container a:hover {
+	text-decoration: none;
+}
+
+@media only screen and (max-width: 767px) {
+  h1 {
+  	font-size: 3em;
+  	width: 70%;
+  }
+
+  .container {
+  	width: 40%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+	h1 {
+		padding-top: 5%;
+	}
+	.container {
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	h1 {
+		width: 90%;
+	}
 }
