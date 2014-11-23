@@ -17,3 +17,7 @@ $.getJSON(calendarLink, function(data) {
 
 });
 
+$(document).ready(function() {
+	var reading_time = $('#reading-time').val();
+	console.log(reading_time);
+});
