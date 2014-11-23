@@ -4,11 +4,17 @@ $.getJSON(calendarLink, function(data) {
 	
 	var response = data["items"]
 
-	// console.log(response)
+	console.log(response)
 
-	for (var i=0; i < response.length; i++) {
+	for (var i=0; i < response.length-1; i++) {
 
-		console.log(moment.utc(moment(response[i]["end"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss").diff(moment(response[i]["start"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss"))).format("HH:mm:ss"))	
+		if (response[i+1]["end"]["dateTime"].split("T")[0] == response[i]["start"]["dateTime"].split("T")[0]) {
+			console.log("between " + response[i]["id"] + " & " + response[i+1]["id"])
+			console.log("the difference is " + moment.utc(moment(response[i+1]["start"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss").diff(moment(response[i]["end"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss"))).format("HH:mm:ss"))		
+		} 
+
+
+
 
 	};
 
