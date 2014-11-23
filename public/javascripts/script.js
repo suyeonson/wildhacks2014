@@ -41,12 +41,28 @@ $(document).ready(function() {
 
 		var valid_articles = {};
 		valid_articles.list = [];
-		for (var i=0; i < saved_articles.list.length; i++) {
-			var reading_time = saved_articles.list[i].reading_time;
-			for (var j=0; j < timeDifferences.length; j++) {
-				console.log(timeDifferences[j].timeDifference);
-				// if (reading_time < timeDifferences[j].)
+
+		var time_diff = ['60', '20', '120'];
+
+		for (var i=0; i < time_diff.length; i++) {
+			var diff = time_diff[i];
+			console.log("diff: " + diff);
+			for (var j=0; j < saved_articles.list.length; j++) {
+				var title = saved_articles.list[j].title;
+				var reading_time = saved_articles.list[j].reading_time;
+				if (reading_time < diff) {
+					console.log('article: ' + title);
+				} else {
+					console.log(reading_time);
+				}
 			}
 		}
+		// for (var i=0; i < saved_articles.list.length; i++) {
+		// 	var reading_time = saved_articles.list[i].reading_time;
+		// 	for (var j=0; j < timeDifferences.length; j++) {
+		// 		console.log(timeDifferences[j].timeDifference);
+		// 		// if (reading_time < timeDifferences[j].)
+		// 	}
+		// }
 	});
 });
