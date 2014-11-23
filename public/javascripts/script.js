@@ -104,12 +104,14 @@ $(document).ready(function() {
 					var finalEndTime = endTime.add(addMinutes, "minutes").format("YYYY-MM-DDTHH:mm:ssZ")
 					var resource = {};
 
-					resource["summary"] = summary
+					resource["summary"] = summary;
 					resource["description"] = description;
 					resource["start"] = {"dateTime":start};
 					resource["end"] = {"dateTime":finalEndTime};
 
-					allResources.push(resource)
+					allResources.push(resource);
+					$('.results').hide();
+					$('.schedule').append(summary);
 
 				};
 			};
@@ -164,7 +166,7 @@ $(document).ready(function() {
 		  });
 		}
 
-		handleAuthClick();
+		//handleAuthClick();
 
 	});
 });
