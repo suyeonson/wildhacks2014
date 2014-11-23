@@ -72,18 +72,19 @@ get "/retrieve" do
   data = info.to_json
   #saved = JSON.parse(data)["list"]
   saved = JSON.parse(data)["list"]
-  # p saved
-  # p saved[:children]
-  titles = []
+  @titles = []
   saved.each do |item, value|
     # @titles = value["given_title"]
-    titles.push(value["given_title"])
+    @titles.push(value["given_title"])
+    # @titles.push(value["word_count"])
     #p @titles
   end
-  titles.each do |title|
-     p "#{title}"
-  end
 
+  erb :saved, :locals => {:titles => @titles}
+
+  # @titles.each do |title, word_count|
+  #    "#{title}, #{word_count}\n"
+  # end
   # @titles.each do |title|
   #   "<pre>#{title}</pre>"
   # end
@@ -99,5 +100,5 @@ get "/retrieve" do
   # html
   # data = JSON.parse(info)
   #puts JSON.pretty_generate(info)
-  #{}"<pre>#{saved}</pre>"
+  #"<pre>#{saved}</pre>"
 end

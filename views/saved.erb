@@ -7,11 +7,14 @@
 
 	</head>
 	<body>
-		<h1>Saved things</h1>
+		<h1>Saved things!!!</h1>
 		<div class="container">
-			<%= @data %>
+			
 		</div>
 		<div class="results">
+			<% @titles.each do |t| %>
+				<%= t %><br>
+			<% end %>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     	<script src="javascripts/bootstrap.min.js"></script>
