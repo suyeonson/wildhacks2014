@@ -4,6 +4,7 @@ var postToCalendar = "https://www.googleapis.com/calendar/v3/calendars/4cpkvhth0
 
 
 $(document).ready(function() {
+
 	$.getJSON(getCalendar, function(data) {
 		
 		var response = data["items"]
@@ -28,6 +29,67 @@ $(document).ready(function() {
 				});
 			}; 
 		};
+
+
+		var clientId = '672637753859-6djrtn7mm822mo305t5pg1qpsg9s2oms.apps.googleusercontent.com';
+		var apiKey = 'AIzaSyDFIPR7NpYdr5-2ykZqjoMsuT9EYW_zt_M';
+		var scopes = 'https://www.googleapis.com/auth/calendar';
+
+
+		function handleClientLoad() {
+		  gapi.client.setApiKey(apiKey);
+		  window.setTimeout(checkAuth,1);
+		  checkAuth();
+		}
+
+		function checkAuth() {
+		  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
+		      handleAuthResult);
+		}
+
+		function handleAuthResult(authResult) {
+		  var authorizeButton = document.getElementById('authorize-button');
+		  if (authResult) {
+		    authorizeButton.style.visibility = 'hidden';
+		    makeApiCall();
+		  } else {
+		    authorizeButton.style.visibility = '';
+		    authorizeButton.onclick = handleAuthClick;
+		   }
+		}
+
+		function handleAuthClick(event) {
+		  gapi.auth.authorize(
+		      {client_id: clientId, scope: scopes, immediate: false},
+		      handleAuthResult);
+		  return false;
+		}
+
+		var resource = {
+		  "summary": "Appointment",
+		  "location": "Somewhere",
+		  "start": {
+		    "dateTime": "2014-11-23T10:00:00.000-07:00"
+		  },
+		  "end": {
+		    "dateTime": "2014-11-23T10:25:00.000-07:00"
+		  }
+		};
+
+		function makeApiCall() {
+		  gapi.client.load('calendar', 'v3', function() {
+		    var request = gapi.client.calendar.events.insert({
+		      'calendarId': '4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com',
+		      'resource': resource
+		    });
+		          
+			request.execute(function(resp) {
+			  console.log(resp);
+			});
+		  });
+		}
+
+		handleAuthClick();
 
 		var saved_articles = {};
 		saved_articles.list = [];
@@ -54,7 +116,6 @@ $(document).ready(function() {
 			var start_time = timeDifferences[i].startId;
 			var end_time = timeDifferences[i].endId;
 
-			console.log("diff: " + diff);
 			for (var j=0; j < saved_articles.list.length; j++) {
 				var title = saved_articles.list[j].title;
 				var url = saved_articles.list[j].url;
