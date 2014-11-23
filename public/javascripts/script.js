@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 					allResources.push(resource);
 					$('.results').hide();
-					$('.schedule').append(summary);
+					$('.schedule').append("<div class='article'><p><a href='" + description + "'>" + summary + "</a></p></div>");
 
 				};
 			};
@@ -163,7 +163,7 @@ $(document).ready(function() {
 		  });
 		}
 
-		//handleAuthClick();
+		handleAuthClick();
 
 	});
 });
