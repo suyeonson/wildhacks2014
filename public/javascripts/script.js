@@ -4,12 +4,13 @@ $.getJSON(calendarLink, function(data) {
 	
 	var response = data["items"]
 
+	// console.log(response)
 
+	for (var i=0; i < response.length; i++) {
 
-	// for (var i=0; i < response.length; i++) {
-	// 	console.log(response[i]["start"] - response[i]["end"])
+		console.log(moment.utc(moment(response[i]["end"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss").diff(moment(response[i]["start"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss"))).format("HH:mm:ss"))	
 
-	// };
+	};
 
 
 
