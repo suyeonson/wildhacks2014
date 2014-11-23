@@ -1,8 +1,6 @@
 WildHacks (using pocket-ruby)
 ===========
 
-[![Code Climate](https://codeclimate.com/github/turadg/pocket-ruby.png)](https://codeclimate.com/github/turadg/pocket-ruby) [![Gem Version](https://badge.fury.io/rb/pocket-ruby.png)](http://badge.fury.io/rb/pocket-ruby)
-
 Ruby API for v3 of the [Pocket API](http://getpocket.com/developer/docs/overview) (formerly Read It Later) 
 
 # Usage
