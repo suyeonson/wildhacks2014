@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'json'
 require "./lib/pocket.rb"
 
 enable :sessions
@@ -66,12 +67,37 @@ end
 
 get "/retrieve" do
   client = Pocket.client(:access_token => session[:access_token])
-  info = client.retrieve(:detailType => :complete, :count => 1)
+  info = client.retrieve(:detailType => :simple)
+  #data = JSON.pretty_generate(info)
+  data = info.to_json
+  #saved = JSON.parse(data)["list"]
+  saved = JSON.parse(data)["list"]
+  # p saved
+  # p saved[:children]
+  titles = []
+  saved.each do |item, value|
+    # @titles = value["given_title"]
+    titles.push(value["given_title"])
+    #p @titles
+  end
+  titles.each do |title|
+     p "#{title}"
+  end
+
+  # @titles.each do |title|
+  #   "<pre>#{title}</pre>"
+  # end
+  # puts data
+  # for item in info
+  #   "<ul>#{info.list.given_title}</ul>"
+  # end
 
   # html = "<h1>#{user.username}'s recent photos</h1>"
   # for media_item in client.user_recent_media
   #   html << "<img src='#{media_item.images.thumbnail.url}'>"
   # end
   # html
-  "<pre>#{info}</pre>"
+  # data = JSON.parse(info)
+  #puts JSON.pretty_generate(info)
+  #{}"<pre>#{saved}</pre>"
 end
