@@ -13,7 +13,7 @@
 		</div>
 		<div class="results">
 			<% @articles.each do |item| %>
-				<a href="<%= item["url"] %>"><%= item["title"] %></a>: <%= item["word_count"] %> words, <%= item["reading_time"] %> min<br>
+				<a href="<%= item["url"] %>"><%= item["title"] %></a>: <%= item["word_count"] %> words, <span id="reading-time"><%= item["reading_time"] %></span> min<br>
 			<% end %>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

@@ -25,3 +25,7 @@ $.getJSON(calendarLink, function(data) {
 console.log(timeDifferences)
 });
 
+$(document).ready(function() {
+	var reading_time = $('#reading-time').val();
+	console.log(reading_time);
+});
