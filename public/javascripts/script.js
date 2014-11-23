@@ -21,7 +21,6 @@ $(document).ready(function() {
 
 				var endTime = moment(response[i]["end"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss")
 
-
 				timeDifferences.push({
 					"startId": response[i]["id"],
 					"endId": response[i+1]["id"],
@@ -30,62 +29,59 @@ $(document).ready(function() {
 			}; 
 		};
 
+		var saved_articles = {};
+		saved_articles.list = [];
+		$('.item').each(function(i) {
+			var reading_time = $(this).find('#reading-time').text();
+			var url = $(this).find('a').attr('href');
+			var title = $(this).find('a').text();
+			var new_article = {
+				'title': title,
+				'url': url,
+				'reading_time': reading_time
+			};
+			saved_articles.list.push(new_article);
+		});
 
-		// gapi.client.setApiKey("AIzaSyDFIPR7NpYdr5-2ykZqjoMsuT9EYW_zt_M");
-		// gapi.auth.authorize({
-		// 	scope: "https://www.googleapis.com/auth/calendar"
-		// });
+		// events is the array of articles to schedule
+		var events = {};
+		events.list = [];
 
-		// gapi.client.load("calendar", "v3", function() {
+		for (var i=0; i < timeDifferences.length; i++) {
+			var valid_articles = [];
 
-		// 	var resource = {
-		// 	  "summary": "Appointment",
-		// 	  "location": "Somewhere",
-		// 	  "start": {
-		// 	    "dateTime": "2014-11-23T10:00:00.000-07:00"
-		// 	  },
-		// 	  "end": {
-		// 	    "dateTime": "2014-11-23T10:25:00.000-07:00"
-		// 	  }
-		// 	};
+			var diff = timeDifferences[i].timeDifference;
+			var start_time = timeDifferences[i].startId;
+			var end_time = timeDifferences[i].endId;
 
-		// 	var request = gapi.client.calendar.events.insert({
-		// 	  'calendarId': '4cpkvhth0nvtedeo8t7tlfbupk@group.calendar.google.com',
-		// 	  'resource': resource
-		// 	});
+			console.log("diff: " + diff);
+			for (var j=0; j < saved_articles.list.length; j++) {
+				var title = saved_articles.list[j].title;
+				var url = saved_articles.list[j].url;
+				var reading_time = saved_articles.list[j].reading_time;
 
-		// 	request.execute(function(resp) {
-		// 	  console.log(resp);
-		// 	});
-
-
-
-		})
-
-
-
-		// var saved_articles = {};
-		// saved_articles.list = [];
-		// $('.item').each(function(i) {
-		// 	var reading_time = $(this).find('#reading-time').text();
-		// 	var url = $(this).find('a').attr('href');
-		// 	var title = $(this).find('a').text();
-		// 	var new_article = {
-		// 		'title': title,
-		// 		'url': url,
-		// 		'reading_time': reading_time
-		// 	};
-		// 	saved_articles.list.push(new_article);
-		// });
-
-		// var valid_articles = {};
-		// valid_articles.list = [];
-		// for (var i=0; i < saved_articles.list.length; i++) {
-		// 	var reading_time = saved_articles.list[i].reading_time;
-		// 	for (var j=0; j < timeDifferences.length; j++) {
-		// 		console.log(timeDifferences[j].timeDifference);
-		// 		// if (reading_time < timeDifferences[j].)
-		// 	}
-		// }
+				if (reading_time < diff) {
+					// save to valid_articles array
+					var valid_article = {
+						'title': title,
+						'url': url,
+						'reading_time': reading_time
+					}
+					valid_articles.push(valid_article);
+				} else {
+					// do nothing
+				}				
+			}
+			// take random article from valid_articles array
+			var schedule_article = valid_articles[Math.floor(Math.random()*valid_articles.length)];
+			var to_schedule  = {
+				'time_diff': diff,
+				'end_id': end_time,
+				'article': schedule_article
+			}
+			events.list.push(to_schedule);
+		}
+		// do other things
+		console.log(events);
 	});
 });
