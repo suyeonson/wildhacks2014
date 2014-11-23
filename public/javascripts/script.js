@@ -6,6 +6,8 @@ $(document).ready(function() {
 		
 		var response = data["items"]
 
+		// console.log(response)
+
 		var timeDifferences = [];
 
 		for (var i=0; i < response.length-1; i++) {
@@ -18,8 +20,8 @@ $(document).ready(function() {
 				var endTime = moment(response[i]["end"]["dateTime"],"YYYY/MM/DD[T]HH:mm:ss")
 
 				timeDifferences.push({
-					"startId": response[i]["id"],
-					"endId": response[i+1]["id"],
+					"startId": response[i+1]["id"],
+					"endId": response[i]["id"],
 					"timeDifference": moment.duration(startTime.diff(endTime)).asMinutes()
 				});
 			}; 
