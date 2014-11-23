@@ -27,13 +27,9 @@ $(document).ready(function() {
 			}; 
 		};
 
-
 		var clientId = '672637753859-6djrtn7mm822mo305t5pg1qpsg9s2oms.apps.googleusercontent.com';
 		var apiKey = 'AIzaSyDFIPR7NpYdr5-2ykZqjoMsuT9EYW_zt_M';
 		var scopes = 'https://www.googleapis.com/auth/calendar';
-
-
-
 
 		var saved_articles = {};
 		saved_articles.list = [];
