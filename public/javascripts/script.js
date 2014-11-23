@@ -43,30 +43,45 @@ $(document).ready(function() {
 			saved_articles.list.push(new_article);
 		});
 
-		var valid_articles = {};
-		valid_articles.list = [];
+		// events is the array of articles to schedule
+		var events = {};
+		events.list = [];
 
-		var time_diff = ['60', '20', '120'];
+		for (var i=0; i < timeDifferences.length; i++) {
+			var valid_articles = [];
 
-		for (var i=0; i < time_diff.length; i++) {
-			var diff = time_diff[i];
+			var diff = timeDifferences[i].timeDifference;
+			var start_time = timeDifferences[i].startId;
+			var end_time = timeDifferences[i].endId;
+
 			console.log("diff: " + diff);
 			for (var j=0; j < saved_articles.list.length; j++) {
 				var title = saved_articles.list[j].title;
+				var url = saved_articles.list[j].url;
 				var reading_time = saved_articles.list[j].reading_time;
+
 				if (reading_time < diff) {
-					console.log('article: ' + title);
+					// save to valid_articles array
+					var valid_article = {
+						'title': title,
+						'url': url,
+						'reading_time': reading_time
+					}
+					valid_articles.push(valid_article);
 				} else {
-					console.log(reading_time);
-				}
+					// do nothing
+				}				
 			}
+			// take random article from valid_articles array
+			var schedule_article = valid_articles[Math.floor(Math.random()*valid_articles.length)];
+			var to_schedule  = {
+				'time_diff': diff,
+				'end_id': end_time,
+				'article': schedule_article
+			}
+			events.list.push(to_schedule);
 		}
-		// for (var i=0; i < saved_articles.list.length; i++) {
-		// 	var reading_time = saved_articles.list[i].reading_time;
-		// 	for (var j=0; j < timeDifferences.length; j++) {
-		// 		console.log(timeDifferences[j].timeDifference);
-		// 		// if (reading_time < timeDifferences[j].)
-		// 	}
-		// }
+		// do other things
+		console.log(events);
 	});
 });
